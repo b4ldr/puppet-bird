@@ -1,0 +1,30 @@
+template bgp <%= @name %> {
+  local as <%= @local_as %>;
+<%- if @multihop -%>
+  multihop <%= @multihop %>;
+<%- end -%>
+<%- if @direct -%>
+  direct;
+<%- end -%>
+<%- if @next_hop_self -%>
+  next hop self;
+<%- end -%>
+<%- if @next_hop_keep -%>
+  next hop keep;
+<%- end -%>
+<%- if @missing_lladdr -%>
+  missing lladdr <%= @missing_lladdr %>;
+<%- end -%>
+<%- if @gateway -%>
+  missing lladdr <%= @gateway %>;
+<%- end -%>
+<%- if @ttl_security -%>
+  ttl security on;
+<%- end -%>
+<%- if @password -%>
+  password <%= @password %>;
+<%- end -%>
+<%- if @rs_client -%>
+  rs client;
+<%- end -%>
+}

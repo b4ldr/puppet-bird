@@ -1,0 +1,17 @@
+# Managed by puppet
+#
+<%- if ['syslog', 'stderr'].include? @log_location -%>
+log <%= @log_location %> { <%= @log_catagory %> };
+<%- else -%>
+log "<%= @log_location %>" <%= @log_catagory %>;
+<%- end -%>
+debug protocols <%= @debug_protocols %>;
+<%- if @mrtdump -%>
+mtrdump <%= @mtrdump %>;
+mtrdump protocols <%= @mtrdump_protocols %>;
+<%- end -%>
+router id <%= @router_id %>;
+#listen bgp <%= @listen_bgp.join(' ') %>;
+listen bgp;
+#graceful restart wait <%= @restart_timeout %>;
+include "<%= @config_dir %>/templates/*.conf";

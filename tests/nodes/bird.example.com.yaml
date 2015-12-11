@@ -1,0 +1,9 @@
+bird::protocols_bgp:
+  test_bgp: 
+    local_as: 64496
+    neighbours:
+      25152:
+        ipv4_addresses:
+        - 1.1.1.1
+        ipv6_addresses:
+        - 0::1

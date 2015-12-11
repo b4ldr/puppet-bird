@@ -1,0 +1,6 @@
+protocol bgp AS<%= @name %> from test_bgp {
+<%- @ipv4_addresses.each do |addr| -%>
+  neighbor <%= addr %> as <%= @name %>;
+<%- end -%>
+<%= scope.function_template([File.dirname(__FILE__) + "/" + "bgp-neighbour_head.conf.erb"]) %>
+}
