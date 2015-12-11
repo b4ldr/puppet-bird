@@ -3,6 +3,7 @@ t
 #bird::protocols::bgp::neighbor
 #
 define bird::protocols::bgp::neighbour (
+  $template       = '',
   $ipv4_addresses = [],
   $ipv6_addresses = [],
   $multihop       = undef,
@@ -17,6 +18,7 @@ define bird::protocols::bgp::neighbour (
   $rs_client      = undef,
 ) {
   $asn = $name
+  validate_string($template)
   validate_array($ipv4_addresses)
   validate_array($ipv6_addresses)
   if $multihop {

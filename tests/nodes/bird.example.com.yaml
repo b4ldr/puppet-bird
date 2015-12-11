@@ -1,5 +1,5 @@
 bird::protocols_bgp:
-  test_bgp: 
+  test_network: 
     local_as: 64496
     neighbours:
       25152:
