@@ -20,4 +20,6 @@ class bird::params {
   $config_dir        = '/etc/bird'
   $v4_config_file    = "${config_dir}/bird.conf"
   $v6_config_file    = "${config_dir}/bird6.conf"
+  $ipv4_enable       = true
+  $ipv6_enable       = true
 }

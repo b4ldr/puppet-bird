@@ -20,6 +20,8 @@ class bird (
   $config_dir        = $::bird::params::config_dir,
   $v4_config_file    = $::bird::params::v4_config_file,
   $v6_config_file    = $::bird::params::v6_config_file,
+  $ipv4_enable       = $::bird::params::ipv4_enable,
+  $ipv6_enable        = $::bird::params::ipv6_enable,
   $protocols_bgp     = {}
 ) inherits bird::params {
 
@@ -59,20 +61,24 @@ class bird (
   file { $v6_config_file:
     ensure  => file,
     content => template($v6_config_content),
-    notify  => Service[$v6_service],
-  }
-  service { $v6_service:
-    ensure => running,
-    enable => true,
   }
   file { $v4_config_file:
     ensure  => file,
     content => template($v4_config_content),
-    notify  => Service[$v4_service],
   }
-  service { $v4_service:
-    ensure => running,
-    enable => true,
+  if $ipv6_enable {
+    service { $v6_service:
+      ensure    => running,
+      enable    => true,
+      subscribe => File[$v6_config_file],
+    }
+  }
+  if $ipv4_enable {
+    service { $v4_service:
+      ensure => running,
+      enable => true,
+      subscribe => File[$v4_config_file],
+    }
   }
   create_resources('bird::protocols::bgp', $protocols_bgp)
 }
