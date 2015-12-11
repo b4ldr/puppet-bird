@@ -1,2 +1,2 @@
-forge 'https://forge.puppetlabs.com'
+forge 'https://forgeapi.puppetlabs.com'
 mod 'icann-bird', :path => '/vagrant'
