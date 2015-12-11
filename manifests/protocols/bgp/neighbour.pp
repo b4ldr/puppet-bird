@@ -51,14 +51,14 @@ define bird::protocols::bgp::neighbour (
   if $rs_client {
     validate_bool($rs_client)
   }
-  if $ipv4_addresses {
+  if $bird::ipv4_enabled {
     file { "${bird::config_dir}/protocols/v4-bgp-${name}.conf":
       ensure  => present,
       content => template('bird/etc/bird/protocols/v4-bgp-neighbour.conf.erb'),
       notify  => Service[$bird::v4_service],
     }
   }
-  if $ipv6_addresses {
+  if $bird::ipv6_enabled {
     file { "${bird::config_dir}/protocols/v6-bgp-${name}.conf":
       ensure  => present,
       content => template('bird/etc/bird/protocols/v6-bgp-neighbour.conf.erb'),
