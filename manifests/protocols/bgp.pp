@@ -50,8 +50,5 @@ define bird::protocols::bgp (
     notify  => $notify,
   }
   create_resources('bird::protocols::bgp::neighbour', $neighbours)
-  Bird::Protocols::Bgp::Neighbour[keys($neighbours)] {
-    template => $name,
-    local_as => $local_as,
-  }
+  Bird::Protocols::Bgp::Neighbour[keys($neighbours)] { template => $name, }
 }

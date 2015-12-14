@@ -1,4 +1,4 @@
-protocol bgp AS<%= @local_as %> from <%= @template %> {
+protocol bgp AS<%= @name %> from <%= @template %> {
 <%- @ipv4_addresses.each do |addr| -%>
   neighbor <%= addr %> as <%= @name %>;
 <%- end -%>
