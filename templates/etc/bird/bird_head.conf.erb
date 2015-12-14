@@ -14,4 +14,11 @@ router id <%= @router_id %>;
 #listen bgp <%= @listen_bgp.join(' ') %>;
 listen bgp;
 #graceful restart wait <%= @restart_timeout %>;
+protocol static {
+  import all;
+<%- @static_networks.each do |net| -%>
+  route <%= net %> reject;
+<%- end -%>
+}
+include "<%= @config_dir %>/filters/*.conf";
 include "<%= @config_dir %>/templates/*.conf";

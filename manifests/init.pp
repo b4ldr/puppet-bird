@@ -22,6 +22,7 @@ class bird (
   $v6_config_file    = $::bird::params::v6_config_file,
   $ipv4_enable       = $::bird::params::ipv4_enable,
   $ipv6_enable       = $::bird::params::ipv6_enable,
+  $static_networks   = [],
   $protocols_bgp     = {},
   $filters           = {},
 ) inherits bird::params {
@@ -47,6 +48,7 @@ class bird (
   validate_absolute_path($config_dir)
   validate_absolute_path($v4_config_file)
   validate_absolute_path($v6_config_file)
+  validate_array($static_networks)
   validate_hash($filters)
   validate_hash($protocols_bgp)
 
