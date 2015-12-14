@@ -22,6 +22,7 @@ class bird (
   $v6_config_file    = $::bird::params::v6_config_file,
   $ipv4_enable       = $::bird::params::ipv4_enable,
   $ipv6_enable       = $::bird::params::ipv6_enable,
+  $kernel_import     = true,
   $static_networks   = [],
   $protocols_bgp     = {},
   $filters           = {},
