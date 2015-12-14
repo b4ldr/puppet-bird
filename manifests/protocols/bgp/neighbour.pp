@@ -25,9 +25,6 @@ define bird::protocols::bgp::neighbour (
   if $multihop {
     validate_integer($multihop)
   }
-  if $direct {
-    validate_bool($direct)
-  }
   if $next_hop_self {
     validate_bool($next_hop_self)
   }

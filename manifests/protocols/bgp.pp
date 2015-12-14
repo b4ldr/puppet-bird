@@ -19,7 +19,6 @@ define bird::protocols::bgp (
   if $multihop {
     validate_integer($multihop)
   }
-  validate_bool($direct)
   validate_bool($next_hop_self)
   validate_bool($next_hop_keep)
   if $missing_lladdr {
