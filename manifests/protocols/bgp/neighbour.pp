@@ -4,6 +4,7 @@ t
 #
 define bird::protocols::bgp::neighbour (
   $template       = '',
+  $local_as       = '',
   $ipv4_addresses = [],
   $ipv6_addresses = [],
   $multihop       = undef,
