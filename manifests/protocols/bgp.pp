@@ -3,7 +3,6 @@
 define bird::protocols::bgp (
   $local_as       = undef,
   $multihop       = false,
-  $direct         = true,
   $next_hop_self  = false,
   $next_hop_keep  = false,
   $missing_lladdr = undef,
@@ -12,6 +11,8 @@ define bird::protocols::bgp (
   $password       = undef,
   $passive        = false,
   $rs_client      = false,
+  $import_filter  = 'all',
+  $export_filter  = 'all',
   $neighbours     = {},
 ) {
   validate_integer($local_as)
@@ -34,6 +35,15 @@ define bird::protocols::bgp (
   validate_bool($passive)
   validate_bool($rs_client)
   validate_hash($neighbours)
+  validate_string($import_filter)
+  validate_string($export_filter)
+  if $import_filter != 'all' and ! defined(Bird::Filter[$import_filter]) {
+    fail("you must define bird::filter['${import_filter}']")
+  }
+  if $export_filter != 'all' and ! defined(Bird::Filter[$import_filter]) {
+    fail("you must define bird::filter['${import_filter}']")
+  }
+
   if $bird::ipv4_enable and $bird::ipv6_enable {
     $notify = Service[$bird::v4_service, $bird::v6_service]
   } elsif $bird::ipv4_enable {

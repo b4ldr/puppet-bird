@@ -1,7 +1,6 @@
 <%- if @multihop -%>
   multihop <%= @multihop %>;
-<%- end -%>
-<%- if @direct -%>
+<%- else -%>
   direct;
 <%- end -%>
 <%- if @next_hop_self -%>
@@ -24,4 +23,10 @@
 <%- end -%>
 <%- if @rs_client -%>
   rs client;
+<%- end -%>
+<%- if @import_filter -%>
+  import <%= @import_filter %>;
+<%- end -%>
+<%- if @export_filter -%>
+  import <%= @export_filter %>;
 <%- end -%>

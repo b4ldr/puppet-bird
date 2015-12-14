@@ -7,7 +7,6 @@ define bird::protocols::bgp::neighbour (
   $ipv4_addresses = [],
   $ipv6_addresses = [],
   $multihop       = undef,
-  $direct         = undef,
   $next_hop_self  = undef,
   $next_hop_keep  = undef,
   $missing_lladdr = undef,
@@ -16,6 +15,8 @@ define bird::protocols::bgp::neighbour (
   $password       = undef,
   $passive        = undef,
   $rs_client      = undef,
+  $import_filter  = undef,
+  $export_filter  = undef,
 ) {
   $asn = $name
   validate_string($template)
@@ -51,6 +52,19 @@ define bird::protocols::bgp::neighbour (
   if $rs_client {
     validate_bool($rs_client)
   }
+  if $import_filter {
+    validate_string($import_filter)
+    if $import_filter != 'all' and ! defined(Bird::Filter[$import_filter]) {
+      fail("you must define bird::filter['${import_filter}']")
+    }
+  }
+  if $export_filter {
+    validate_string($export_filter)
+    if $export_filter != 'all' and ! defined(Bird::Filter[$import_filter]) {
+      fail("you must define bird::filter['${import_filter}']")
+    }
+  }
+
   if $bird::ipv4_enable {
     file { "${bird::config_dir}/protocols/v4-bgp-${name}.conf":
       ensure  => present,

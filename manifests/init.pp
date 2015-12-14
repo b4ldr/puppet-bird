@@ -21,8 +21,9 @@ class bird (
   $v4_config_file    = $::bird::params::v4_config_file,
   $v6_config_file    = $::bird::params::v6_config_file,
   $ipv4_enable       = $::bird::params::ipv4_enable,
-  $ipv6_enable        = $::bird::params::ipv6_enable,
-  $protocols_bgp     = {}
+  $ipv6_enable       = $::bird::params::ipv6_enable,
+  $protocols_bgp     = {},
+  $filters           = {},
 ) inherits bird::params {
 
   validate_string($owner)
@@ -46,10 +47,14 @@ class bird (
   validate_absolute_path($config_dir)
   validate_absolute_path($v4_config_file)
   validate_absolute_path($v6_config_file)
+  validate_hash($filters)
   validate_hash($protocols_bgp)
 
   ensure_packages([$package])
-  file{ ["${config_dir}/protocols", "${config_dir}/templates"]:
+  file{ [
+          "${config_dir}/protocols",
+          "${config_dir}/templates",
+          "${config_dir}/filters"]:
     ensure  => directory,
     recurse => true,
     purge   => true,
@@ -75,10 +80,11 @@ class bird (
   }
   if $ipv4_enable {
     service { $v4_service:
-      ensure => running,
-      enable => true,
+      ensure    => running,
+      enable    => true,
       subscribe => File[$v4_config_file],
     }
   }
   create_resources('bird::protocols::bgp', $protocols_bgp)
+  create_resources('bird::filter', $filters)
 }
