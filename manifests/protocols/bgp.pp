@@ -1,6 +1,8 @@
 #bird::protocols::bgp
 #
 define bird::protocols::bgp (
+  $table         = undef,
+  $debug         = 'off',
   $local_as       = undef,
   $multihop       = false,
   $next_hop_self  = false,
@@ -15,6 +17,10 @@ define bird::protocols::bgp (
   $export_filter  = 'all',
   $neighbours     = {},
 ) {
+  if $table {
+    validate_string($table)
+  }
+  validate_re($debug,'^(all|off|states|routes|filters|events|packets)$')
   validate_integer($local_as)
   if $multihop {
     validate_integer($multihop)

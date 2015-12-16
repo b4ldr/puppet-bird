@@ -22,4 +22,6 @@ class bird::params {
   $v6_config_file    = "${config_dir}/bird6.conf"
   $ipv4_enable       = true
   $ipv6_enable       = true
+  $default_kernel    = true
+  $default_device    = true
 }

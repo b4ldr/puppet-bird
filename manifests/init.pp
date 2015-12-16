@@ -22,9 +22,12 @@ class bird (
   $v6_config_file    = $::bird::params::v6_config_file,
   $ipv4_enable       = $::bird::params::ipv4_enable,
   $ipv6_enable       = $::bird::params::ipv6_enable,
-  $kernel_import     = true,
+  $default_device    = $::bird::params::default_device,
+  $default_direct    = $::bird::params::default_direct,
+  $default_kernel    = $::bird::params::default_kernel,
   $static_networks   = [],
   $protocols_bgp     = {},
+  $protocols_kernel  = {},
   $filters           = {},
 ) inherits bird::params {
 
@@ -51,6 +54,7 @@ class bird (
   validate_absolute_path($v6_config_file)
   validate_array($static_networks)
   validate_hash($filters)
+  validate_hash($protocols_kernel)
   validate_hash($protocols_bgp)
 
   ensure_packages([$package])
@@ -88,6 +92,22 @@ class bird (
       subscribe => File[$v4_config_file],
     }
   }
-  create_resources('bird::protocols::bgp', $protocols_bgp)
+  if $default_device {
+    bird::protocol::device { 'default':
+      ensure => present,
+    }
+  }
+  if $default_direct {
+    bird::protocol::direct { 'default':
+      ensure => present,
+    }
+  }
+  if $default_kernel {
+    bird::protocol::kernel { 'default':
+      ensure => present,
+    }
+  }
   create_resources('bird::filter', $filters)
+  create_resources('bird::protocols::kernel', $protocols_kernel)
+  create_resources('bird::protocols::bgp', $protocols_bgp)
 }

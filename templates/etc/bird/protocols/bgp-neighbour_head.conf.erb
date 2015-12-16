@@ -1,3 +1,11 @@
+<%- if @table -%>
+  table <%= @table %>;
+<%- end -%>
+<%- if ['off','all'].include?(@debug) -%>
+  debug <%= @debug -%>;
+<%- else -%>
+  debug { <%= @debug -%> };
+<%- end -%>
 <%- if @multihop -%>
   multihop <%= @multihop %>;
 <%- end -%>

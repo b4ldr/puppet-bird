@@ -3,6 +3,8 @@ t
 #bird::protocols::bgp::neighbor
 #
 define bird::protocols::bgp::neighbour (
+  $table         = undef,
+  $debug         = undef,
   $template       = '',
   $ipv4_addresses = [],
   $ipv6_addresses = [],
@@ -19,6 +21,12 @@ define bird::protocols::bgp::neighbour (
   $export_filter  = undef,
 ) {
   $asn = $name
+  if $table {
+    validate_string($table)
+  }
+  if $debug {
+    validate_re($debug,'^(all|off|states|routes|filters|events|packets)$')
+  }
   validate_string($template)
   validate_array($ipv4_addresses)
   validate_array($ipv6_addresses)

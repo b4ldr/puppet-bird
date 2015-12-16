@@ -1,4 +1,12 @@
 template bgp <%= @name %> {
+<%- if @table -%>
+  table <%= @table %>;
+<%- end -%>
+<%- if ['off','all'].include?(@debug) -%>
+  debug <%= @debug -%>;
+<%- else -%>
+  debug { <%= @debug -%> };
+<%- end -%>
   local as <%= @local_as %>;
 <%- if @multihop -%>
   multihop <%= @multihop %>;

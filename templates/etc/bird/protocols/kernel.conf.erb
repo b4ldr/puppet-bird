@@ -1,0 +1,19 @@
+#Managed by puppet
+protocol kernel <%= @name %> {
+<%- if @table -%>
+  table <%= @table %>;
+<%- end -%>
+<%- if ['off','all'].include?(@debug) -%>
+  debug <%= @debug -%>;
+<%- else -%>
+  debug { <%= @debug -%> };
+<%- end -%>
+<%- if @learn -%>
+  learn;
+<%- end -%>
+<%- if @persist -%>
+  persist;
+<%- end -%>
+  import <%= @import_filter %>;
+  export <%= @export_filter %>;
+}
