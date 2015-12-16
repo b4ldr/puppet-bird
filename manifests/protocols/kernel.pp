@@ -4,7 +4,7 @@ define bird::protocols::kernel (
   $table         = undef,
   $debug         = 'off',
   $import_filter = 'all',
-  $export_filter = 'none',
+  $export_filter = 'all',
   $learn         = true,
   $persist       = false,
   $scan_time     = 10,
