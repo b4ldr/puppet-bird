@@ -14,8 +14,8 @@ define bird::protocols::device (
   if $primary {
     validate_string($primary)
   }
-  file { "${bird::config_dir}/protocols/device.conf":
+  file { "${bird::config_dir}/protocols/device-${name}.conf":
     ensure  => file,
-    content => template('bird/etc/protocols/device.conf.erb'),
+    content => template('bird/etc/bird/protocols/device.conf.erb'),
   }
 }

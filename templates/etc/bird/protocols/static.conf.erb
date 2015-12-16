@@ -8,7 +8,7 @@ protocol static <%= @name %> {
 <%- end -%>
 <%- if @debug == 'all' -%>
   debug all;
-<%- elsif @debug != 'off' -%>
+<%- elsif @debug != 'off' and @debug -%>
   debug { <%= @debug -%> };
 <%- end -%>
 <%- if @check_link -%>

@@ -18,8 +18,8 @@ define bird::protocols::kernel (
   validate_integer($scan_time)
   validate_string($import_filter)
   validate_string($export_filter)
-  file { "${bird::config_dir}/protocols/kernel.conf":
+  file { "${bird::config_dir}/protocols/kernel-${name}.conf":
     ensure  => file,
-    content => template('bird/etc/protocols/kernel.conf.erb'),
+    content => template('bird/etc/bird/protocols/kernel.conf.erb'),
   }
 }

@@ -5,7 +5,7 @@ protocol direct <%= @name %> {
 <%- end -%>
 <%- if @debug == 'all' -%>
   debug all;
-<%- elsif @debug != 'off' -%>
+<%- elsif @debug != 'off' and @debug -%>
   debug { <%= @debug -%> };
 <%- end -%>
 <%- if @interfaces.any? -%>

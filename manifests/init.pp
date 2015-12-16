@@ -100,13 +100,13 @@ class bird (
     }
   }
   if $default_device {
-    bird::protocols::device { 'default': }
+    bird::protocols::device { 'default_device': }
   }
   if $default_direct {
-    bird::protocols::direct { 'default': }
+    bird::protocols::direct { 'default_direct': }
   }
   if $default_kernel {
-    bird::protocols::kernel { 'default': }
+    bird::protocols::kernel { 'default_kernel': }
   }
   create_resources('bird::filter', $filters)
   create_resources('bird::protocols::device', $protocols_device)

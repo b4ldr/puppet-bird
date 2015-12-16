@@ -20,8 +20,8 @@ define bird::protocols::static (
   if $igp_table {
     validate_string($igp_table)
   }
-  file { "${bird::config_dir}/protocols/static.conf":
+  file { "${bird::config_dir}/protocols/static-${name}.conf":
     ensure  => file,
-    content => template('bird/etc/protocols/static.conf.erb'),
+    content => template('bird/etc/bird/protocols/static.conf.erb'),
   }
 }
