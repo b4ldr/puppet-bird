@@ -1,0 +1,14 @@
+#Managed by puppet
+protocol direct <%= @name %> {
+<%- if @table -%>
+  table <%= @table %>;
+<%- end -%>
+<%- if @debug == 'all' -%>
+  debug all;
+<%- elsif @debug != 'off' -%>
+  debug { <%= @debug -%> };
+<%- end -%>
+<%- if @interfaces.any? -%>
+  interface "<%= @interfaces.join('", "') %>";
+<%- end -%>
+}

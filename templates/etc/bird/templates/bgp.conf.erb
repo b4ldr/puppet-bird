@@ -2,9 +2,9 @@ template bgp <%= @name %> {
 <%- if @table -%>
   table <%= @table %>;
 <%- end -%>
-<%- if ['off','all'].include?(@debug) -%>
-  debug <%= @debug -%>;
-<%- else -%>
+<%- if @debug == 'all' -%>
+  debug all;
+<%- elsif @debug != 'off' -%>
   debug { <%= @debug -%> };
 <%- end -%>
   local as <%= @local_as %>;

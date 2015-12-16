@@ -1,5 +1,5 @@
 #Managed by puppet
-protocol kernel <%= @name %> {
+protocol device <%= @name %> {
 <%- if @table -%>
   table <%= @table %>;
 <%- end -%>
@@ -8,15 +8,10 @@ protocol kernel <%= @name %> {
 <%- elsif @debug != 'off' -%>
   debug { <%= @debug -%> };
 <%- end -%>
-<%- if @learn -%>
-  learn;
-<%- end -%>
-<%- if @persist -%>
-  persist;
-<%- end -%>
 <%- if @scan_time -%>
   scan time <%= @scan_time %>;
 <%- end -%>
-  import <%= @import_filter %>;
-  export <%= @export_filter %>;
+<%- if @primary -%>
+  primary <%= @primary %>;
+<%- end -%>
 }

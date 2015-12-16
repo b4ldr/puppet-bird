@@ -1,6 +1,6 @@
 #Bird::Filter
 #
-define bird::kernel (
+define bird::protocols::kernel (
   $table         = undef,
   $debug         = 'off',
   $learn         = true,
