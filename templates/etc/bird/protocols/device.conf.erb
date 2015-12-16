@@ -14,4 +14,6 @@ protocol device <%= @name %> {
 <%- if @primary -%>
   primary <%= @primary %>;
 <%- end -%>
+  import <%= @import_filter %>;
+  export <%= @export_filter %>;
 }

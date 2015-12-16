@@ -11,4 +11,6 @@ protocol direct <%= @name %> {
 <%- if @interfaces.any? -%>
   interface "<%= @interfaces.join('", "') %>";
 <%- end -%>
+  import <%= @import_filter %>;
+  export <%= @export_filter %>;
 }

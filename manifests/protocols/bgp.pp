@@ -1,8 +1,10 @@
 #bird::protocols::bgp
 #
 define bird::protocols::bgp (
-  $table         = undef,
-  $debug         = 'off',
+  $table          = undef,
+  $debug          = 'off',
+  $import_filter  = 'all',
+  $export_filter  = 'none',
   $local_as       = undef,
   $multihop       = false,
   $next_hop_self  = false,
@@ -13,8 +15,6 @@ define bird::protocols::bgp (
   $password       = undef,
   $passive        = false,
   $rs_client      = false,
-  $import_filter  = 'all',
-  $export_filter  = 'all',
   $neighbours     = {},
 ) {
   if $table {
