@@ -59,14 +59,14 @@ define bird::protocols::bgp::neighbour (
   }
   if $import_filter {
     validate_string($import_filter)
-    if $import_filter != 'all' and ! defined(Bird::Filter[$import_filter]) {
+    if ! $import_filter in ['all', 'none'] and ! defined(Bird::Filter[$import_filter]) {
       fail("you must define bird::filter['${import_filter}']")
     }
   }
   if $export_filter {
     validate_string($export_filter)
-    if $export_filter != 'all' and ! defined(Bird::Filter[$import_filter]) {
-      fail("you must define bird::filter['${import_filter}']")
+    if ! $export_filter in ['all','none'] and ! defined(Bird::Filter[$import_filter]) {
+      fail("you must define bird::filter['${export_filter}']")
     }
   }
 
