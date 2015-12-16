@@ -1,0 +1,24 @@
+#Managed by puppet
+protocol static <%= @name %> {
+<%- if @table -%>
+  table <%= @table %>;
+<%- end -%>
+<%- if @igp_table -%>
+  igp table <%= @igp_table %>;
+<%- end -%>
+<%- if @debug == 'all' -%>
+  debug all;
+<%- elsif @debug != 'off' -%>
+  debug { <%= @debug -%> };
+<%- end -%>
+<%- if @check_link -%>
+  check link;
+<%- end -%>
+<%- if @routes.any? -%>
+  <%- @routes.each do |route| -%>
+  route <%= route %>;
+  <%- end -%>
+<%- end -%>
+  import <%= @import_filter %>;
+  export <%= @export_filter %>;
+}

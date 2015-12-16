@@ -25,9 +25,11 @@ class bird (
   $default_device    = $::bird::params::default_device,
   $default_direct    = $::bird::params::default_direct,
   $default_kernel    = $::bird::params::default_kernel,
-  $static_networks   = [],
   $protocols_bgp     = {},
+  $protocols_device  = {},
+  $protocols_direct  = {},
   $protocols_kernel  = {},
+  $protocols_static  = {},
   $filters           = {},
 ) inherits bird::params {
 
@@ -52,10 +54,15 @@ class bird (
   validate_absolute_path($config_dir)
   validate_absolute_path($v4_config_file)
   validate_absolute_path($v6_config_file)
-  validate_array($static_networks)
+  validate_bool($default_device)
+  validate_bool($default_direct)
+  validate_bool($default_kernel)
   validate_hash($filters)
+  validate_hash($protocols_device)
+  validate_hash($protocols_direct)
   validate_hash($protocols_kernel)
   validate_hash($protocols_bgp)
+  validate_hash($protocols_static)
 
   ensure_packages([$package])
   file{ [
@@ -108,6 +115,9 @@ class bird (
     }
   }
   create_resources('bird::filter', $filters)
+  create_resources('bird::protocols::device', $protocols_device)
+  create_resources('bird::protocols::direct', $protocols_direct)
   create_resources('bird::protocols::kernel', $protocols_kernel)
   create_resources('bird::protocols::bgp', $protocols_bgp)
+  create_resources('bird::protocols::static', $protocols_static)
 }

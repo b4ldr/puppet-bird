@@ -14,15 +14,9 @@ router id <%= @router_id %>;
 #listen bgp <%= @listen_bgp.join(' ') %>;
 listen bgp;
 #graceful restart wait <%= @restart_timeout %>;
-protocol static static_networks {
-<%- @static_networks.each do |net| -%>
-  route <%= net %> reject;
-<%- end -%>
-}
-protocol direct { }
-protocol device {
-  scan time 10;
-}
-include "<%= @config_dir %>/bird.conf.d/*.conf";
 include "<%= @config_dir %>/filters/*.conf";
 include "<%= @config_dir %>/templates/*.conf";
+include "<%= @config_dir %>/protocols/kernel.conf";
+include "<%= @config_dir %>/protocols/device.conf";
+include "<%= @config_dir %>/protocols/direct.conf";
+include "<%= @config_dir %>/protocols/static.conf";
