@@ -1,21 +1,27 @@
 #Bird::Filter
 #
-define bird::protocols::device (
+define bird::protocols::static (
   $table         = undef,
   $debug         = 'off',
-  $scan_time     = 10,
-  $primary       = undef
+  $routes        = [],
+  $check_link    = false,
+  $import_filter = 'all',
+  $export_filter = 'all',
+  $igp_table     = undef,
 ) {
   if $table {
     validate_string($table)
   }
   validate_re($debug,'^(all|off|states|routes|filters|events|packets)$')
-  validate_integer($scan_time)
-  if $primary {
-    validate_string($primary)
+  validate_array($routes)
+  validate_bool($check_link)
+  validate_string($import_filter)
+  validate_string($export_filter)
+  if $igp_table {
+    validate_string($igp_table)
   }
-  file { "${bird::config_dir}/protocols/device.conf":
+  file { "${bird::config_dir}/protocols/static.conf":
     ensure  => file,
-    content => template('bird/etc/protocols/device.conf.erb'),
+    content => template('bird/etc/protocols/static.conf.erb'),
   }
 }
